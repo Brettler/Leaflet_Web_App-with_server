@@ -13,5 +13,4 @@ const getUserInfo = async (username) => {
     }
 };
 
-// Don't forget to export this new function
 module.exports = {getUserInfo}
