@@ -2,12 +2,8 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 // This file only define the structure of the data.
-const Register = new Schema({
+const UserInfo = new Schema({
     username: {
-      type: String,
-      require: true
-    },
-    password: {
         type: String,
         require: true
     },
@@ -18,9 +14,6 @@ const Register = new Schema({
     profilePic: {
         type: String,
         require: true
-    },
-    chats: [{type: mongoose.Schema.Types.ObjectId, ref: 'Chat'}]
-
-
+    }
 });
-module.exports = mongoose.model('Register', Register)
+module.exports = mongoose.model('UserInfo', UserInfo)

@@ -12,7 +12,15 @@ const cors = require('cors');
 app.use(cors());
 
 
-
+// Middleware to handle the redirection from /chat and /register to the login page
+app.use((req, res, next) => {
+    const { originalUrl, method } = req;
+    if ((originalUrl === '/chat' || originalUrl === '/register') && method === 'GET') {
+        res.redirect('/');
+    } else {
+        next();
+    }
+});
 
 
 
@@ -40,21 +48,23 @@ app.use(express.static('public'))
 
 // If someone will request from the server api/Users using 'post' we will respond we creating a new user in the system.
 const register = require('./routes/register')
-
 // API that use to register user in the system.
 app.use('/api/Users', register);
 
 
 const login = require('./routes/login')
-
 // API to log in user into the system.
 app.use('/api/Tokens', login);
 
-
 const userInfo = require('./routes/UserInfo')
-
-// API to get user information.
+// // API to get user information.
 app.use('/api/Users/:id', userInfo);
+
+const chat = require('./routes/chat');
+app.use('/api/Chats', chat);
+
+// const message = require('./routes/message');
+// app.use('/api/Chats', message)
 
 // 'process.env.PORT' varaible will contain the port that the server will run on it. This string is define in the config directory.
 // need to swich instead of the hard coded port to - 'process.env.PORT
