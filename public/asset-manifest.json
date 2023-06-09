@@ -1,22 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.b630ba09.css",
-    "main.js": "/static/js/main.0e6ea433.js",
-    "static/media/Jerry_Seinfeld.png": "/static/media/Jerry_Seinfeld.82fddb207155a305c990.png",
-    "static/media/Frank_Underwood.jpg": "/static/media/Frank_Underwood.208572448e5bb7de24c1.jpg",
+    "main.js": "/static/js/main.7b992247.js",
     "static/media/leafs.JPG": "/static/media/leafs.55804f8fab6c45e5d8f2.JPG",
-    "static/media/Ragnar_Lothbrok.jpg": "/static/media/Ragnar_Lothbrok.0fd639900a03cc0d777c.jpg",
-    "static/media/Eleanor_Shellstrop.jpeg": "/static/media/Eleanor_Shellstrop.b696721c4ccbfe0d53cc.jpeg",
-    "static/media/Gregory_House.jpg": "/static/media/Gregory_House.f59608a01cab93ecd761.jpg",
-    "static/media/Rick_Sanchez.jpg": "/static/media/Rick_Sanchez.8195a7400da16fe19bbe.jpg",
-    "static/media/Louis_Litt.jpg": "/static/media/Louis_Litt.560a62e9229b04e55714.jpg",
     "static/media/DefaultProfilePIC.png": "/static/media/DefaultProfilePIC.04fa960999505dcd5a7e.png",
     "index.html": "/index.html",
     "main.b630ba09.css.map": "/static/css/main.b630ba09.css.map",
-    "main.0e6ea433.js.map": "/static/js/main.0e6ea433.js.map"
+    "main.7b992247.js.map": "/static/js/main.7b992247.js.map"
   },
   "entrypoints": [
     "static/css/main.b630ba09.css",
-    "static/js/main.0e6ea433.js"
+    "static/js/main.7b992247.js"
   ]
 }

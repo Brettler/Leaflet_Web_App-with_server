@@ -9,7 +9,8 @@ const createUser = async (req, res) => {
     try {
         // We are waiting for the createUser from the service to be done and just then we will execute.
         const user = await registerService.createUser(req.body);
-        res.status(200).json(user);
+        // We just return status 200 for success.
+        res.sendStatus(200);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
