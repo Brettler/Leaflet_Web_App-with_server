@@ -28,7 +28,11 @@ const createChat = async (username, userId) => {
 
         // If the friend is not found, throw an error.
         if (!friend) {
-            throw new Error('Friend not found');
+            throw new Error('No user with this name exists in the system.');
+        }
+        // If the friend's id is the same as the user's id, throw an error.
+        if (friend._id.toString() === userId.toString()) {
+            throw new Error('User cannot add themselves as a friend.');
         }
 
         // Create a new chat with the authenticated user and the friend.
@@ -55,7 +59,7 @@ const createChat = async (username, userId) => {
         return {chat: newChat, friend: friend};
     } catch (err) {
         console.error("Error while creating chat", err);
-        throw new Error('Error while creating chat');
+        throw err;  // Re-throw the original error.
     }
 };
 

@@ -72,7 +72,7 @@ const createChat = async (req, res) => {
         try {
             decoded = jwt.verify(token, key);
             console.log("Token verified");
-        } catch(err) {
+        } catch (err) {
             console.log("Token verification failed: ", err.message);
         }
 
@@ -102,30 +102,67 @@ const createChat = async (req, res) => {
             });
         } catch (err) {
             console.log("User retrieval or chat creation failed: ", err.message);
-            return res.status(500).send("Internal Server Error");
+
+            // Check if the error message is 'User cannot add themselves as a friend'
+            if (err.message === 'User cannot add themselves as a friend.' || err.message === 'No user with this name exists in the system.') {
+                // Send back a specific error message to the client
+                return res.status(400).send(err.message);
+            } else {
+                // For all other errors, send back a generic error message
+                return res.status(500).send("Failed adding a friend");
+            }
         }
-    } else {
-        return res.status(403).send('Token required');
     }
 };
 
 
 const deleteChat = async (req, res) => {
-    try {
-        const chatId = req.params.id;
+    console.log("Attempting to delete chat..."); // added logging
 
-        // Delete the chat and its associated messages
-        const deleteResult = await chatModel.deleteOne({ _id: chatId });
-        await messageModel.deleteMany({ chat: chatId });
-
-        if (deleteResult.deletedCount > 0) {
-            res.status(200).send('Chat deleted successfully');
-        } else {
-            res.status(404).send('Chat not found');
+    if (req.headers.authorization) {
+        const token = req.headers.authorization.split(" ")[1];
+        let decoded;
+        try {
+            decoded = jwt.verify(token, key);
+            console.log("Token verified");
+        } catch(err) {
+            console.log("Token verification failed: ", err.message);
+            return res.status(401).send("Invalid Token");
         }
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error while deleting chat');
+
+        try {
+            const chatId = req.params.id;
+            const chat = await chatModel.findById(chatId);
+            if (!chat) {
+                console.log("Chat not found, sending status 404");
+                return res.status(404).send('Chat not found');
+            }
+
+            const user = await registerModel.findOne({username: decoded.username});
+            if (!chat.participants.includes(user._id)) {
+                console.log("User is not a participant in the chat, sending status 403");
+                return res.status(403).send('You are not authorized to delete this chat');
+            }
+
+            // Delete the chat and its associated messages
+            const deleteResult = await chatModel.deleteOne({ _id: chatId });
+            await messageModel.deleteMany({ chat: chatId });
+
+            if (deleteResult.deletedCount > 0) {
+                console.log("Chat deleted successfully, sending status 200");
+                // We just return status 200 for success.
+                res.sendStatus(200);
+            } else {
+                console.log("Chat not found, sending status 404");
+                res.status(404).send('Chat not found');
+            }
+        } catch (err) {
+            console.error("Error occurred while deleting chat: ", err);
+            res.status(500).send('Error while deleting chat');
+        }
+    } else {
+        console.log("No Authorization header found, sending status 403");
+        return res.status(403).send('Token required');
     }
 };
 
