@@ -17,8 +17,6 @@ const getChats = async (userId) => {
     }
 };
 
-
-
 const registerModel = require('../models/register')
 const createChat = async (username, userId) => {
     try {
@@ -62,10 +60,5 @@ const createChat = async (username, userId) => {
         throw err;  // Re-throw the original error.
     }
 };
-
-
-
-
-
 
 module.exports = {getChats, createChat};
