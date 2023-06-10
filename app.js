@@ -7,14 +7,6 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server);
 
-
-io.on('connection', (socket) => {
-    console.log('user connected: ', socket.id);
-    socket.on('messageSent', async (userId) => {
-        socket.broadcast.emit("renderContactList", userId);
-    });
-});
-
 const messageService = require("./services/message");
 messageService.setIo(io);
 
@@ -43,12 +35,6 @@ app.use((req, res, next) => {
 
 const customEnv = require('custom-env');
 customEnv.env(process.env.NODE_ENV, './config');
-
-
-console.log(process.env.CONNECTION_STRING)
-console.log(process.env.PORT)
-
-
 
 const mongoose= require('mongoose');
 // Connecting to the mongoose. mongoose will be located in 'CONNECTION_STRING'. This string is define in the config directory.
@@ -79,9 +65,6 @@ app.use('/api/Users/:id', userInfo);
 
 const chat = require('./routes/chat');
 app.use('/api/Chats', chat);
-
-// const message = require('./routes/message');
-// app.use('/api/Chats', message)
 
 
 
