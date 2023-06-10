@@ -21,7 +21,6 @@ const addMessage = async (chatId, messageData) => {
         if (io) {
             io.emit('newMessage', { chatId, message: populatedMessage});
         }
-        console.log("saveMessage: ", savedMessage);
         return populatedMessage;
     } catch (err) {
         console.error(err);
