@@ -1,7 +1,10 @@
 const Message = require("../models/message");
 const Chat = require("../models/chat");
-
-
+// We set the io varaible in app.js
+let io;
+const setIo = function(ioInstance) {
+    io = ioInstance;
+};
 const addMessage = async (chatId, messageData) => {
     try {
         const message = new Message(messageData);
@@ -14,6 +17,11 @@ const addMessage = async (chatId, messageData) => {
         // Retrieve the saved message again to populate sender details
         const populatedMessage = await Message.findById(savedMessage._id).populate('sender', 'username displayName profilePic');
 
+        // emit newMessage event to all connected sockets
+        if (io) {
+            io.emit('newMessage', { chatId, message: populatedMessage});
+        }
+        console.log("saveMessage: ", savedMessage);
         return populatedMessage;
     } catch (err) {
         console.error(err);
@@ -37,4 +45,4 @@ const getMessages = async (chatId) => {
 };
 
 
-module.exports = {addMessage, getMessages}
+module.exports = {addMessage, getMessages, setIo}

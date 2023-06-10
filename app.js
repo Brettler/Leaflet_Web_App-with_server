@@ -7,11 +7,16 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server);
 
+
 io.on('connection', (socket) => {
-    socket.on('messageSent', async () => {
-        socket.broadcast.emit("renderContactList");
+    console.log('user connected: ', socket.id);
+    socket.on('messageSent', async (userId) => {
+        socket.broadcast.emit("renderContactList", userId);
     });
 });
+
+const messageService = require("./services/message");
+messageService.setIo(io);
 
 // bodyParser will deal with the request in 'post' method.
 const bodyParser = require('body-parser');
@@ -73,7 +78,6 @@ const userInfo = require('./routes/UserInfo')
 app.use('/api/Users/:id', userInfo);
 
 const chat = require('./routes/chat');
-const {addMessage} = require("./services/message");
 app.use('/api/Chats', chat);
 
 // const message = require('./routes/message');
