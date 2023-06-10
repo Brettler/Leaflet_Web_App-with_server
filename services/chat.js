@@ -6,7 +6,7 @@ const getChats = async (userId) => {
         console.log("Attempting to fetch chats for user: ", userId);
         const chats = await Chat.find({participants: userId}).populate({
             path: 'messages',
-            options: { sort: { 'created': -1 }, limit: 1 },
+            options: { sort: { 'created': 1 }},
             populate: { path: 'sender' }
         });
         console.log("Fetched chats: ", chats); // Log the fetched chats

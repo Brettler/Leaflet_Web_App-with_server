@@ -12,6 +12,9 @@ const createUser = async (req, res) => {
         // We just return status 200 for success.
         res.sendStatus(200);
     } catch (error) {
+        if (error.message === 'This username is already taken.') {
+            return res.status(409).json({message: error.message});  // Conflict error
+        }
         res.status(500).json({message: error.message});
     }
 }
