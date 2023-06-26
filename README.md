@@ -14,9 +14,13 @@ To run the application using our client and server, follow these steps:
 1. Redirect to the provided link and clone the repository.
 2. Navigate to the directory where the files are located using your terminal.
 3. Execute the command "npm install" to install the required dependencies.
-4. Open your local MongoDB server and modify the URL section from 'localhost' to '127.0.0.1'.
-5. Proceed to the 'config' folder and edit the 'env.local' file to set the URL for your local MongoDB database. Ensure that the port number matches the one specified in your MongoDB server configuration. If necessary, you can modify the port number used by our server.
-6. Finally, enter the command "npm start" to start the application.
+4. Open your local MongoDB server and modify the URL section from 'localhost' to '127.0.0.1/leaflet', and click 'Connect'.
+5. Proceed to the 'config' folder and edit the 'env.local' file to set the URL for your local MongoDB database. Ensure that the port number matches the one specified in your MongoDB server configuration. If necessary, you can modify the port number used by our server, by default set to '4656'.
+6. Finally, enter the command "npm start" to start the server.
+
+To run the web client:
+
+Proceed to the browser and enter the MongoDB address, meaning 'localhost' or '127.0.0.1' with our server port number '4656'. The full link: 'http://127.0.0.1:4656'.
 
 To launch the client with your own NodeJS server, follow these steps:
 
