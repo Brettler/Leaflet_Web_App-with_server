@@ -1,4 +1,4 @@
-# Advanced Programmin 2 - Task 2 With Server
+# Leaflet App (With Server)
 Eden Berman & Liad Brettler
 
 ## Description
