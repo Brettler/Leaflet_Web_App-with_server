@@ -1,4 +1,4 @@
-# Leaflet App (With Server)
+# Leaflet Web App (With Server)
 Eden Berman & Liad Brettler
 
 ## Description
